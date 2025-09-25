@@ -1,4 +1,6 @@
-﻿<nav class="len-bersih-navbar">
+﻿@inject NavigationManager NavigationManager
+
+<nav class="len-bersih-navbar">
     <div class="navbar-container">
         <div class="navbar-brand">
             <a href="" class="brand-link">
@@ -9,22 +11,22 @@
         <div class="navbar-nav-container">
             <ul class="navbar-nav @CollapseClass">
                 <li class="nav-item">
-                    <NavLink class="nav-link" href="" Match="NavLinkMatch.All">
+                    <a class="nav-link" href="/#home" Match="NavLinkMatch.All">
                         <span class="nav-text">Home</span>
-                    </NavLink>
+                    </a>
                 </li>
                 <li class="nav-item">
-                    <NavLink class="nav-link" href="mekanisme">
+                    <a class="nav-link" href="/#guide" @onclick='() => NavigateToSection("guide")'>
                         <span class="nav-text">Guide</span>
-                    </NavLink>
+                    </a>
                 </li>
                 <li class="nav-item">
-                    <NavLink class="nav-link" href="lingkup">
+                    <a class="nav-link" href="/#scope" @onclick='() => NavigateToSection("scope")'>
                         <span class="nav-text">Scope</span>
-                    </NavLink>
+                    </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/#about">
+                    <a class="nav-link" href="/#about" @onclick='() => NavigateToSection("about")'>
                         <span class="nav-text">About</span>
                     </a>
                 </li>
@@ -50,5 +52,11 @@
     private void ToggleNavMenu()
     {
         collapseNavMenu = !collapseNavMenu;
+    }
+
+    private void NavigateToSection(string sectionId)
+    {
+        NavigationManager.NavigateTo($"/#" + sectionId, forceLoad: false);
+        collapseNavMenu = true;
     }
 }

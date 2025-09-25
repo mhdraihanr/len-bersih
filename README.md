@@ -6,6 +6,14 @@ Len Bersih adalah portal web E-Whistleblowing System resmi milik PT Len Industri
 
 Tujuan utama: Mendukung budaya integritas dan tata kelola yang bersih di lingkungan PT Len Industri.
 
+## Pembaruan Terbaru (25 September 2025)
+
+- Penambahan **Scope Section** dengan grid 5 kolom yang menampilkan kategori pelaporan secara lebih seimbang dan responsif.
+- Pembuatan **Guide Section** untuk memandu pelapor melalui langkah-langkah proses whistleblowing.
+- Integrasi **animasi scroll menggunakan AOS** untuk pengalaman pengguna yang lebih hidup dengan tetap menjaga performa.
+- Penataan ulang **navigasi satu halaman** agar tautan hero, scope, guide, dan about lebih mudah diakses.
+- Penyempurnaan styling responsif (spacing, tipografi, dan keseimbangan kartu) pada halaman utama.
+
 ## Struktur Proyek
 
 Proyek dibangun menggunakan .NET 9 dengan arsitektur tiga lapis:
@@ -47,9 +55,15 @@ Akses UI di browser: `https://localhost:5001` (sesuaikan port jika berbeda). Nav
 
 ## Fitur Saat Ini
 
-- Halaman Home: Deskripsi sistem whistleblowing, daftar kategori pelanggaran, dan tombol untuk mulai laporan.
-- Form Pelaporan: Dropdown kategori, textarea deskripsi, submit ke API (anonim, tanpa login).
-- API Stubs: GET /api/reports (daftar laporan), POST /api/reports (buat laporan baru).
+- **Halaman Home**
+  - Hero section dengan CTA jelas dan akses cepat ke form pelaporan.
+  - Scope section 5 kolom yang menampilkan ruang lingkup kasus yang dilayani beserta ikon deskriptif.
+  - About section yang merinci program dan persyaratan whistleblowing.
+  - Guide section berisi langkah-langkah proses WBS yang terstruktur.
+  - Animasi scroll AOS dan layout responsif untuk pengalaman yang modern dan intuitif.
+- **Form Pelaporan**: Dropdown kategori, textarea deskripsi, dan submit anonim ke API tanpa login.
+- **API Stubs**: Endpoint GET /api/reports (daftar laporan) dan POST /api/reports (buat laporan baru) menggunakan penyimpanan sementara in-memory.
+- **Navigasi Satu Halaman**: Tautan navbar langsung ke hero, scope, guide, dan about untuk memudahkan eksplorasi.
 
 ## Rencana Masa Depan
 

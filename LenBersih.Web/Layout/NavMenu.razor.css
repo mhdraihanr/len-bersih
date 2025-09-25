@@ -17,7 +17,7 @@
   padding: 0 1.5rem;
   max-width: 1200px;
   margin: 0 auto;
-  height: 90px;
+  height: 80px;
 }
 
 .navbar-brand .brand-link {
@@ -37,7 +37,7 @@
 }
 
 .brand-logo {
-  height: 4rem;
+  height: 3.5rem;
   width: auto;
   margin-right: 0.75rem;
   object-fit: contain;
@@ -58,7 +58,7 @@
 .navbar-nav-container {
   display: flex;
   align-items: center;
-  gap: 1.5rem;
+  gap: 1rem;
   flex: 1;
   justify-content: center;
   position: relative;
@@ -67,11 +67,14 @@
 .navbar-nav {
   display: flex !important;
   list-style: none;
-  margin: 0;
+  margin: 0 auto;
+  margin-left: 6rem;
   padding: 0;
-  gap: 1.8rem;
+  gap: 1.1rem;
   align-items: center;
   flex-direction: row;
+  justify-content: center;
+  flex: 1;
 }
 
 /* Desktop: Always show navbar horizontally, ignore collapse class */
@@ -95,11 +98,6 @@
 
   .len-bersih-navbar .navbar-toggle {
     display: none !important;
-  }
-
-  .len-bersih-navbar .navbar-actions {
-    position: absolute;
-    right: 0;
   }
 }
 
@@ -136,9 +134,8 @@
 }
 
 .nav-text {
-  font-weight: 500;
-  font-family: "Open Sans", Sans-serif;
-  letter-spacing: 0.01em;
+  font-weight: 700;
+  letter-spacing: 0.1rem;
   color: #515151;
 }
 
@@ -146,8 +143,7 @@
   display: flex;
   align-items: center;
   gap: 0.75rem;
-  position: absolute;
-  right: 0;
+  margin-left: auto;
 }
 
 .btn-status {
@@ -353,11 +349,6 @@
   }
 
   .navbar-nav {
-    gap: 2rem;
-  }
-
-  .nav-link {
-    padding: 0.7rem 1rem;
-    font-size: 0.95rem;
+    gap: 1.1rem;
   }
 }

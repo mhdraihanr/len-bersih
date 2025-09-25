@@ -130,13 +130,6 @@
   background-color: #eff6ff;
 }
 
-.nav-icon {
-  font-size: 1rem;
-  margin-right: 0.5rem;
-  opacity: 0.8;
-  transition: opacity 0.3s ease;
-}
-
 .nav-link:hover .nav-icon,
 .nav-link.active .nav-icon {
   opacity: 1;
@@ -144,7 +137,9 @@
 
 .nav-text {
   font-weight: 500;
+  font-family: "Open Sans", Sans-serif;
   letter-spacing: 0.01em;
+  color: #515151;
 }
 
 .navbar-actions {

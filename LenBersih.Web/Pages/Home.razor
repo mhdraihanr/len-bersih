@@ -1,4 +1,5 @@
 ﻿@page "/"
+@inject IJSRuntime JSRuntime
 
 <PageTitle>Len Bersih - E-Whistleblowing System</PageTitle>
 
@@ -24,12 +25,12 @@
 
 <section class="about-section" id="about">
     <div class="about-container">
-        <div class="about-header">
+        <div class="about-header" data-aos="fade-up" data-aos-duration="800">
             <h2 class="about-title">About</h2>
         </div>
 
         <div class="about-content">
-            <div class="about-question">
+            <div class="about-question" data-aos="fade-up" data-aos-delay="100">
                 <h3 class="question-title">Apa itu Len Bersih?</h3>
                 <p class="question-answer">
                     Len Bersih adalah sebuah program nyata dari Manajemen PT Len Industri (Persero) untuk mewujudkan
@@ -44,30 +45,30 @@
                 </p>
             </div>
 
-            <div class="about-programs">
+            <div class="about-programs" data-aos="fade-up" data-aos-delay="200">
                 <h3 class="programs-title">Program Len Bersih</h3>
                 <p class="programs-intro">Manajemen PT Len Industri (Persero) melengkapi program Len Bersih ini dengan:
                 </p>
                 <div class="programs-grid">
-                    <div class="program-card">
+                    <div class="program-card" data-aos="zoom-in" data-aos-delay="300">
                         <div class="program-icon">📢</div>
                         <h4>Sosialisasi</h4>
                         <p>Kegiatan sosialisasi untuk meningkatkan kesadaran karyawan atas keberadaan Program Len Bersih
                             dan sistem pelaporan pelanggaran yang independen</p>
                     </div>
-                    <div class="program-card">
+                    <div class="program-card" data-aos="zoom-in" data-aos-delay="400">
                         <div class="program-icon">🎓</div>
                         <h4>Pendidikan & Pelatihan</h4>
                         <p>Kegiatan pendidikan dan pelatihan kepada stakeholder agar memahami kebijakan dan prosedur
                             pengendalian internal untuk mencegah terjadinya pelanggaran</p>
                     </div>
-                    <div class="program-card">
+                    <div class="program-card" data-aos="zoom-in" data-aos-delay="500">
                         <div class="program-icon">👥</div>
                         <h4>Tim WBS Berpengalaman</h4>
                         <p>Tim WBS yang berpengalaman untuk menganalisa laporan pelanggaran yang masuk</p>
                     </div>
-                    <div class="program-card">
-                        <div class="program-icon">⚡</div>
+                    <div class="program-card" data-aos="zoom-in" data-aos-delay="600">
+                        <div class=" program-icon">⚡</div>
                         <h4>Mekanisme Cepat</h4>
                         <p>Mekanisme pelaporan pelanggaran yang dapat segera ditindaklanjuti dengan prosedur yang jelas
                         </p>
@@ -75,12 +76,12 @@
                 </div>
             </div>
 
-            <div class="about-requirements">
+            <div class="about-requirements" data-aos="fade-up" data-aos-delay="300">
                 <h3 class="requirements-title">Persyaratan Laporan</h3>
                 <p class="requirements-intro">Laporan dapat ditindaklanjuti bila memenuhi persyaratan sebagai berikut:
                 </p>
                 <div class="requirements-list">
-                    <div class="requirement-item">
+                    <div class="requirement-item" data-aos="fade-right" data-aos-delay="400">
                         <div class="requirement-number">1</div>
                         <div class="requirement-content">
                             <h4>Identitas Pelapor</h4>
@@ -88,21 +89,21 @@
                                 dan mempermudah tindak lanjut laporan dalam hal dibutuhkan data tambahan</p>
                         </div>
                     </div>
-                    <div class="requirement-item">
+                    <div class="requirement-item" data-aos="fade-right" data-aos-delay="500">
                         <div class="requirement-number">2</div>
                         <div class="requirement-content">
                             <h4>Uraian Pelanggaran</h4>
                             <p>Uraian lengkap mengenai pelanggaran yang dilakukan dengan detail yang jelas</p>
                         </div>
                     </div>
-                    <div class="requirement-item">
+                    <div class="requirement-item" data-aos="fade-right" data-aos-delay="600">
                         <div class="requirement-number">3</div>
                         <div class="requirement-content">
                             <h4>Data Terlapor</h4>
                             <p>Data terlapor dan pihak lain yang terlibat serta unitnya (bila ada)</p>
                         </div>
                     </div>
-                    <div class="requirement-item">
+                    <div class="requirement-item" data-aos="fade-right" data-aos-delay="700">
                         <div class="requirement-number">4</div>
                         <div class="requirement-content">
                             <h4>Waktu & Tempat</h4>
@@ -114,3 +115,13 @@
         </div>
     </div>
 </section>
+
+@code {
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            await JSRuntime.InvokeVoidAsync("initializeAOS");
+        }
+    }
+}

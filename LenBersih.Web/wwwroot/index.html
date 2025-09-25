@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
+  <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>LenBersih.Web</title>
@@ -10,23 +9,46 @@
     <link rel="stylesheet" href="css/app.css" />
     <link rel="icon" type="image/png" href="favicon.png" />
     <link href="LenBersih.Web.styles.css" rel="stylesheet" />
-</head>
 
-<body>
+    <!-- AOS (Animate On Scroll) Library -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
+  </head>
+
+  <body>
     <div id="app">
-        <svg class="loading-progress">
-            <circle r="40%" cx="50%" cy="50%" />
-            <circle r="40%" cx="50%" cy="50%" />
-        </svg>
-        <div class="loading-progress-text"></div>
+      <svg class="loading-progress">
+        <circle r="40%" cx="50%" cy="50%" />
+        <circle r="40%" cx="50%" cy="50%" />
+      </svg>
+      <div class="loading-progress-text"></div>
     </div>
 
     <div id="blazor-error-ui">
-        An unhandled error has occurred.
-        <a href="." class="reload">Reload</a>
-        <span class="dismiss">🗙</span>
+      An unhandled error has occurred.
+      <a href="." class="reload">Reload</a>
+      <span class="dismiss">🗙</span>
     </div>
     <script src="_framework/blazor.webassembly.js"></script>
-</body>
 
+    <!-- AOS (Animate On Scroll) Library -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+      // Initialize AOS when page loads
+      document.addEventListener("DOMContentLoaded", function () {
+        AOS.init({
+          duration: 800,
+          easing: "ease-in-out",
+          once: true,
+          offset: 120,
+        });
+      });
+
+      // Reinitialize AOS when Blazor components are rendered
+      window.initializeAOS = () => {
+        if (window.AOS) {
+          AOS.refreshHard();
+        }
+      };
+    </script>
+  </body>
 </html>

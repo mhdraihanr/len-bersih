@@ -1,0 +1,86 @@
+@page "/report"
+@using LenBersih.Shared
+@using System.Net.Http.Json
+@inject HttpClient Http
+@inject NavigationManager Navigation
+
+<PageTitle>Report Incident</PageTitle>
+
+<h3>Laporkan Dugaan Pelanggaran</h3>
+
+<p>Silakan isi formulir di bawah ini untuk melaporkan secara anonim. Informasi Anda akan dirahasiakan.</p>
+
+@if (success)
+{
+    <div class="alert alert-success">Laporan berhasil dikirim! Terima kasih atas kontribusi Anda.</div>
+    <button class="btn btn-secondary" @onclick="NavigateToHome">Kembali ke Beranda</button>
+}
+else
+{
+    <EditForm Model="report" OnValidSubmit="SubmitReport">
+        <DataAnnotationsValidator />
+        <ValidationSummary />
+
+        <div class="form-group mb-3">
+            <label for="category">Kategori Pelanggaran:</label>
+            <InputSelect id="category" @bind-Value="report.Category" class="form-select">
+                <option value="">Pilih Kategori</option>
+                <option value="Gratifikasi">Gratifikasi</option>
+                <option value="Kecurangan">Kecurangan</option>
+                <option value="Konflik Kepentingan">Konflik Kepentingan</option>
+                <option value="Korupsi">Korupsi</option>
+                <option value="Pelanggaran Hukum">Pelanggaran Hukum</option>
+                <option value="Pelanggaran Peraturan Perusahaan">Pelanggaran Peraturan Perusahaan</option>
+                <option value="Pencurian">Pencurian</option>
+                <option value="Suap">Suap</option>
+                <option value="Penyalahgunaan Jabatan">Penyalahgunaan Jabatan</option>
+            </InputSelect>
+            <ValidationMessage For="@(() => report.Category)" />
+        </div>
+
+        <div class="form-group mb-3">
+            <label for="description">Deskripsi:</label>
+            <InputTextArea id="description" @bind-Value="report.Description" class="form-control" rows="5"
+                placeholder="Jelaskan detail dugaan pelanggaran..."></InputTextArea>
+            <ValidationMessage For="@(() => report.Description)" />
+        </div>
+
+        <button type="submit" class="btn btn-primary" disabled="@isSubmitting">Kirim Laporan</button>
+    </EditForm>
+}
+
+@code {
+    private Report report = new();
+    private bool success = false;
+    private bool isSubmitting = false;
+
+    private async Task SubmitReport()
+    {
+        isSubmitting = true;
+        try
+        {
+            var response = await Http.PostAsJsonAsync("api/reports", report);
+            if (response.IsSuccessStatusCode)
+            {
+                success = true;
+            }
+            else
+            {
+                // Handle error
+            }
+        }
+        catch (Exception ex)
+        {
+            // Handle exception
+        }
+        finally
+        {
+            isSubmitting = false;
+        }
+    }
+
+    private void NavigateToHome()
+    {
+        Navigation.NavigateTo("/");
+    }
+}

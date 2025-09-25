@@ -1,0 +1,54 @@
+﻿<nav class="len-bersih-navbar">
+    <div class="navbar-container">
+        <div class="navbar-brand">
+            <a href="" class="brand-link">
+                <img src="https://lenbersih.len.co.id/assets/img/P_Len%20Industri%202018.png" alt="PT Len Industri"
+                    class="brand-logo" />
+            </a>
+        </div>
+        <div class="navbar-nav-container">
+            <ul class="navbar-nav @CollapseClass">
+                <li class="nav-item">
+                    <NavLink class="nav-link" href="" Match="NavLinkMatch.All">
+                        <span class="nav-text">HOME</span>
+                    </NavLink>
+                </li>
+                <li class="nav-item">
+                    <NavLink class="nav-link" href="mekanisme">
+                        <span class="nav-text">MEKANISME</span>
+                    </NavLink>
+                </li>
+                <li class="nav-item">
+                    <NavLink class="nav-link" href="lingkup">
+                        <span class="nav-text">LINGKUP</span>
+                    </NavLink>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/#about">
+                        <span class="nav-text">ABOUT</span>
+                    </a>
+                </li>
+            </ul>
+            <div class="navbar-actions">
+                <a href="/cek-status" class="btn-status">Cek Status</a>
+                <a href="/report" class="btn-report">Laporkan Sekarang</a>
+            </div>
+            <button class="navbar-toggle" type="button" @onclick="ToggleNavMenu">
+                <span class="toggle-line"></span>
+                <span class="toggle-line"></span>
+                <span class="toggle-line"></span>
+            </button>
+        </div>
+    </div>
+</nav>
+
+@code {
+    private bool collapseNavMenu = true;
+
+    private string CollapseClass => collapseNavMenu ? "collapse" : "";
+
+    private void ToggleNavMenu()
+    {
+        collapseNavMenu = !collapseNavMenu;
+    }
+}

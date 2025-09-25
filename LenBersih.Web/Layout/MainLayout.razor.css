@@ -1,0 +1,156 @@
+/* Clean Layout Styles */
+.page {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  background: #f8fafc;
+  overflow-x: hidden;
+}
+
+main {
+  flex: 1;
+  margin-top: 64px; /* Account for fixed navbar */
+  min-height: calc(100vh - 64px);
+}
+
+article {
+  padding: 0;
+  max-width: 1200px;
+  margin: 0 auto;
+  background: transparent;
+  width: 100%;
+}
+
+/* Content styling enhancements */
+article h1,
+article h2,
+article h3,
+article h4,
+article h5,
+article h6 {
+  color: #1f2937;
+  font-weight: 600;
+  margin-bottom: 1rem;
+}
+
+article h1 {
+  font-size: 2.5rem;
+  color: #1f2937;
+  margin-bottom: 1.5rem;
+}
+
+article p {
+  color: #6b7280;
+  line-height: 1.6;
+  margin-bottom: 1rem;
+}
+
+article ul {
+  color: #6b7280;
+  line-height: 1.6;
+}
+
+article ul li {
+  margin-bottom: 0.5rem;
+}
+
+/* Form enhancements */
+.form-group label {
+  color: #1f2937;
+  font-weight: 500;
+  margin-bottom: 0.5rem;
+}
+
+.form-control,
+.form-select {
+  border: 1px solid #d1d5db;
+  border-radius: 6px;
+  padding: 0.75rem 1rem;
+  transition: all 0.3s ease;
+  background: white;
+}
+
+.form-control:focus,
+.form-select:focus {
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+  outline: none;
+}
+
+/* Button enhancements */
+.btn-primary {
+  background: #3b82f6;
+  border: none;
+  border-radius: 6px;
+  padding: 0.75rem 2rem;
+  font-weight: 500;
+  transition: all 0.3s ease;
+  color: white;
+}
+
+.btn-primary:hover {
+  background: #2563eb;
+  color: white;
+  text-decoration: none;
+}
+
+.btn-secondary {
+  background: white;
+  border: 1px solid #d1d5db;
+  color: #374151;
+  border-radius: 6px;
+  padding: 0.75rem 2rem;
+  font-weight: 500;
+  transition: all 0.3s ease;
+}
+
+.btn-secondary:hover {
+  background: #f9fafb;
+  color: #374151;
+  text-decoration: none;
+}
+
+/* Alert enhancements */
+.alert {
+  border-radius: 8px;
+  border: 1px solid #d1d5db;
+  padding: 1rem;
+  margin-bottom: 1.5rem;
+  background: white;
+}
+
+.alert-info {
+  background: #eff6ff;
+  border-color: #3b82f6;
+  color: #1e40af;
+}
+
+.alert-success {
+  background: #f0fdf4;
+  border-color: #22c55e;
+  color: #166534;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  main {
+    margin-top: 60px; /* Account for smaller mobile navbar */
+  }
+
+  article h1 {
+    font-size: 2rem;
+  }
+}
+
+@media (max-width: 480px) {
+  article h1 {
+    font-size: 1.75rem;
+  }
+
+  .btn-primary,
+  .btn-secondary {
+    padding: 0.625rem 1.5rem;
+    font-size: 0.9rem;
+  }
+}

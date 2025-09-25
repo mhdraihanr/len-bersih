@@ -1,0 +1,368 @@
+/* Len Bersih Navbar Styles */
+.len-bersih-navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  background: #ffffff;
+  border-bottom: 1px solid #e5e7eb;
+  z-index: 1000;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.navbar-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 1.5rem;
+  max-width: 1200px;
+  margin: 0 auto;
+  height: 90px;
+}
+
+.navbar-brand .brand-link {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  color: #374151;
+  font-weight: 700;
+  font-size: 1.4rem;
+  transition: all 0.3s ease;
+  padding: 0.5rem 0;
+}
+
+.navbar-brand .brand-link:hover {
+  color: #3b82f6;
+  transform: scale(1.02);
+}
+
+.brand-logo {
+  height: 4rem;
+  width: auto;
+  margin-right: 0.75rem;
+  object-fit: contain;
+  filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.1));
+  transition: all 0.3s ease;
+}
+
+.brand-logo:hover {
+  transform: scale(1.05);
+}
+
+.brand-text {
+  color: #374151;
+  font-weight: 700;
+  letter-spacing: -0.025em;
+}
+
+.navbar-nav-container {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  flex: 1;
+  justify-content: center;
+  position: relative;
+}
+
+.navbar-nav {
+  display: flex !important;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  gap: 1.8rem;
+  align-items: center;
+  flex-direction: row;
+}
+
+/* Desktop: Always show navbar horizontally, ignore collapse class */
+@media (min-width: 769px) {
+  .len-bersih-navbar .navbar-nav {
+    display: flex !important;
+    flex-direction: row !important;
+    position: static !important;
+    background: transparent !important;
+    box-shadow: none !important;
+    border: none !important;
+    padding: 0 !important;
+    width: auto !important;
+    height: auto !important;
+  }
+
+  .len-bersih-navbar .navbar-nav.collapse {
+    display: flex !important;
+    flex-direction: row !important;
+  }
+
+  .len-bersih-navbar .navbar-toggle {
+    display: none !important;
+  }
+
+  .len-bersih-navbar .navbar-actions {
+    position: absolute;
+    right: 0;
+  }
+}
+
+.nav-item {
+  position: relative;
+}
+
+.nav-link {
+  display: flex;
+  align-items: center;
+  padding: 0.6rem 0.8rem;
+  color: #6b7280;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  font-weight: 500;
+  font-size: 0.9rem;
+  border-radius: 6px;
+  white-space: nowrap;
+}
+
+.nav-link:hover {
+  color: #3b82f6;
+  background-color: #f0f9ff;
+}
+
+.nav-link.active {
+  color: #3b82f6;
+  background-color: #eff6ff;
+}
+
+.nav-icon {
+  font-size: 1rem;
+  margin-right: 0.5rem;
+  opacity: 0.8;
+  transition: opacity 0.3s ease;
+}
+
+.nav-link:hover .nav-icon,
+.nav-link.active .nav-icon {
+  opacity: 1;
+}
+
+.nav-text {
+  font-weight: 500;
+  letter-spacing: 0.01em;
+}
+
+.navbar-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  position: absolute;
+  right: 0;
+}
+
+.btn-status {
+  background: transparent;
+  color: black;
+  padding: 0.7rem 1.2rem;
+  border: 1px solid #d1d5db;
+  border-radius: 6px;
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 0.875rem;
+  transition: all 0.3s ease;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.btn-status:hover {
+  background: #f9fafb;
+  color: #374151;
+  border-color: #9ca3af;
+  text-decoration: none;
+}
+
+.btn-report {
+  background: #f01e1e;
+  color: white;
+  padding: 0.7rem 1.2rem;
+  border-radius: 6px;
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 0.875rem;
+  transition: all 0.3s ease;
+  border: none;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.btn-report:hover {
+  background: #2563eb;
+  color: white;
+  text-decoration: none;
+}
+
+/* Remove old background image styles as we're now using emoji icons */
+
+.navbar-toggle {
+  display: none;
+  flex-direction: column;
+  background: white;
+  border: 1px solid #d1d5db;
+  border-radius: 6px;
+  padding: 0.5rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.navbar-toggle:hover {
+  background: #f9fafb;
+}
+
+.toggle-line {
+  width: 20px;
+  height: 2px;
+  background: #374151;
+  margin: 2px 0;
+  transition: all 0.3s ease;
+  border-radius: 1px;
+}
+
+/* Tablet Responsive */
+@media (max-width: 1024px) {
+  .navbar-container {
+    padding: 0 1rem;
+  }
+
+  .navbar-nav {
+    gap: 1.2rem;
+  }
+
+  .nav-link {
+    font-size: 0.85rem;
+    padding: 0.5rem 0.6rem;
+  }
+
+  .btn-status,
+  .btn-report {
+    padding: 0.6rem 1rem;
+    font-size: 0.8rem;
+  }
+}
+
+/* Mobile Responsive */
+@media (max-width: 768px) {
+  .navbar-container {
+    padding: 0 1rem;
+    height: 64px;
+  }
+
+  .navbar-toggle {
+    display: flex !important;
+    z-index: 1001;
+  }
+
+  .navbar-nav-container {
+    justify-content: flex-end;
+  }
+
+  .navbar-nav {
+    position: absolute !important;
+    top: 100% !important;
+    left: 0 !important;
+    right: 0 !important;
+    flex-direction: column !important;
+    background: white !important;
+    border-top: 1px solid #e5e7eb !important;
+    padding: 1.5rem !important;
+    gap: 0.5rem !important;
+    box-shadow: 0 4px 12px -2px rgba(0, 0, 0, 0.15) !important;
+    z-index: 1000 !important;
+  }
+
+  .navbar-nav.collapse {
+    display: none !important;
+  }
+
+  .nav-link {
+    justify-content: flex-start;
+    width: 100%;
+    padding: 1rem;
+    border-radius: 8px;
+    border-left: 4px solid transparent;
+    background-color: #f9fafb;
+    margin-bottom: 0.5rem;
+  }
+
+  .nav-link:hover,
+  .nav-link.active {
+    border-left-color: #3b82f6;
+    background-color: #eff6ff;
+  }
+
+  .navbar-actions {
+    position: relative;
+    right: auto;
+    margin-top: 1rem;
+    padding-top: 1rem;
+    border-top: 1px solid #e5e7eb;
+    width: 100%;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .btn-status,
+  .btn-report {
+    width: 100%;
+    text-align: center;
+    padding: 1rem;
+    font-size: 0.9rem;
+  }
+
+  .brand-text {
+    font-size: 1.25rem;
+  }
+
+  .nav-icon {
+    font-size: 1.1rem;
+    margin-right: 0.75rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .navbar-container {
+    padding: 0 0.75rem;
+    height: 60px;
+  }
+
+  .brand-text {
+    font-size: 1.1rem;
+  }
+
+  .brand-icon {
+    font-size: 1.5rem;
+  }
+
+  .nav-text {
+    font-size: 0.85rem;
+  }
+
+  .navbar-nav {
+    padding: 1rem;
+  }
+
+  .nav-link {
+    padding: 0.875rem;
+  }
+}
+
+/* Large Desktop */
+@media (min-width: 1400px) {
+  .navbar-container {
+    max-width: 1300px;
+    padding: 0 2rem;
+  }
+
+  .navbar-nav {
+    gap: 2rem;
+  }
+
+  .nav-link {
+    padding: 0.7rem 1rem;
+    font-size: 0.95rem;
+  }
+}

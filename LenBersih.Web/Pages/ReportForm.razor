@@ -1,61 +1,224 @@
 @page "/report"
 @using LenBersih.Shared
+@using Microsoft.AspNetCore.Components.Forms
 @using System.Net.Http.Json
 @inject HttpClient Http
 @inject NavigationManager Navigation
 
 <PageTitle>Report Incident</PageTitle>
 
-<h3>Laporkan Dugaan Pelanggaran</h3>
+<div class="report-page">
+    <div class="report-hero">
+        <span class="report-badge">Laporkan Pelanggaran</span>
+        <p class="report-subtitle">
+            Setiap laporan akan diproses secara rahasia oleh Unit Pengelola Whistleblowing System. Identitas pelapor
+            terlindungi dan Anda dapat memilih untuk tetap anonim.
+        </p>
+    </div>
 
-<p>Silakan isi formulir di bawah ini untuk melaporkan secara anonim. Informasi Anda akan dirahasiakan.</p>
-
-@if (success)
-{
-    <div class="alert alert-success">Laporan berhasil dikirim! Terima kasih atas kontribusi Anda.</div>
-    <button class="btn btn-secondary" @onclick="NavigateToHome">Kembali ke Beranda</button>
-}
-else
-{
-    <EditForm Model="report" OnValidSubmit="SubmitReport">
-        <DataAnnotationsValidator />
-        <ValidationSummary />
-
-        <div class="form-group mb-3">
-            <label for="category">Kategori Pelanggaran:</label>
-            <InputSelect id="category" @bind-Value="report.Category" class="form-select">
-                <option value="">Pilih Kategori</option>
-                <option value="Gratifikasi">Gratifikasi</option>
-                <option value="Kecurangan">Kecurangan</option>
-                <option value="Konflik Kepentingan">Konflik Kepentingan</option>
-                <option value="Korupsi">Korupsi</option>
-                <option value="Pelanggaran Hukum">Pelanggaran Hukum</option>
-                <option value="Pelanggaran Peraturan Perusahaan">Pelanggaran Peraturan Perusahaan</option>
-                <option value="Pencurian">Pencurian</option>
-                <option value="Suap">Suap</option>
-                <option value="Penyalahgunaan Jabatan">Penyalahgunaan Jabatan</option>
-            </InputSelect>
-            <ValidationMessage For="@(() => report.Category)" />
+    @if (success)
+    {
+        <div class="report-success">
+            <div class="success-icon">✅</div>
+            <h2>Laporan Berhasil Terkirim</h2>
+            <p>Terima kasih atas kontribusi Anda dalam menjaga integritas PT Len Industri.</p>
+            <div class="success-actions">
+                <button class="btn-secondary" @onclick="NavigateToHome">Kembali ke Beranda</button>
+                <button class="btn-primary" @onclick="ResetForm">Kirim Laporan Baru</button>
+            </div>
         </div>
+    }
+    else
+    {
+        <EditForm Model="report" OnValidSubmit="SubmitReport" class="report-form">
+            <DataAnnotationsValidator />
+            <ValidationSummary class="validation-summary" />
 
-        <div class="form-group mb-3">
-            <label for="description">Deskripsi:</label>
-            <InputTextArea id="description" @bind-Value="report.Description" class="form-control" rows="5"
-                placeholder="Jelaskan detail dugaan pelanggaran..."></InputTextArea>
-            <ValidationMessage For="@(() => report.Description)" />
-        </div>
+            @if (!string.IsNullOrEmpty(submissionError))
+            {
+                <div class="form-alert form-alert-error">@submissionError</div>
+            }
+            @if (!string.IsNullOrEmpty(captchaError))
+            {
+                <div class="form-alert form-alert-error">@captchaError</div>
+            }
+            @if (!string.IsNullOrEmpty(fileError))
+            {
+                <div class="form-alert form-alert-error">@fileError</div>
+            }
 
-        <button type="submit" class="btn btn-primary" disabled="@isSubmitting">Kirim Laporan</button>
-    </EditForm>
-}
+            <section class="form-section">
+                <h3 class="section-title">Data Pelapor</h3>
+                <p class="section-note">Nama bersifat opsional. Centang anonim bila Anda tidak ingin mencantumkan
+                    identitas.</p>
+
+                <div class="identity-row">
+                    <div class="form-group">
+                        <label for="reporterName">Nama Pelapor (Opsional)</label>
+                        <InputText id="reporterName" class="form-control" @bind-Value="report.ReporterName"
+                            disabled="@report.IsAnonymous" placeholder="Masukkan nama Anda" />
+                    </div>
+                    <div class="checkbox-inline">
+                        <label class="checkbox-label" for="isAnonymous">
+                            <InputCheckbox id="isAnonymous" @bind-Value="IsAnonymous" />
+                            <span>Laporkan sebagai anonim</span>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="form-grid two-column">
+                    <div class="form-group">
+                        <label for="email">Email <span class="required">*</span></label>
+                        <InputText id="email" class="form-control" @bind-Value="report.Email" type="email"
+                            placeholder="nama@domain.com" />
+                        <ValidationMessage For="@(() => report.Email)" />
+                    </div>
+                    <div class="form-group">
+                        <label for="category">Kategori Dugaan Pelanggaran <span class="required">*</span></label>
+                        <InputSelect id="category" class="form-control" @bind-Value="report.Category">
+                            <option value="">Pilih kategori</option>
+                            @foreach (var category in ReportMetadata.Categories)
+                            {
+                                <option value="@category">@category</option>
+                            }
+                        </InputSelect>
+                        <ValidationMessage For="@(() => report.Category)" />
+                    </div>
+                </div>
+            </section>
+
+            <section class="form-section">
+                <h3 class="section-title">Data Terlapor</h3>
+                <div class="form-grid three-column">
+                    <div class="form-group">
+                        <label for="reportedName">Nama Terlapor <span class="required">*</span></label>
+                        <InputText id="reportedName" class="form-control" @bind-Value="report.ReportedName"
+                            placeholder="Nama terlapor" />
+                        <ValidationMessage For="@(() => report.ReportedName)" />
+                    </div>
+                    <div class="form-group">
+                        <label for="reportedPosition">Jabatan Terlapor <span class="required">*</span></label>
+                        <InputText id="reportedPosition" class="form-control" @bind-Value="report.ReportedPosition"
+                            placeholder="Jabatan terlapor" />
+                        <ValidationMessage For="@(() => report.ReportedPosition)" />
+                    </div>
+                    <div class="form-group">
+                        <label for="reportedUnit">Unit Kerja Terlapor <span class="required">*</span></label>
+                        <InputText id="reportedUnit" class="form-control" @bind-Value="report.ReportedUnit"
+                            placeholder="Unit kerja terlapor" />
+                        <ValidationMessage For="@(() => report.ReportedUnit)" />
+                    </div>
+                </div>
+            </section>
+
+            <section class="form-section">
+                <h3 class="section-title">Detail Kejadian</h3>
+                <div class="form-grid two-column">
+                    <div class="form-group">
+                        <label for="incidentDate">Waktu Kejadian <span class="required">*</span></label>
+                        <InputDate id="incidentDate" class="form-control" @bind-Value="report.IncidentDate" />
+                        <ValidationMessage For="@(() => report.IncidentDate)" />
+                    </div>
+                    <div class="form-group">
+                        <label for="incidentLocation">Lokasi Kejadian <span class="required">*</span></label>
+                        <InputText id="incidentLocation" class="form-control" @bind-Value="report.IncidentLocation"
+                            placeholder="Lokasi kejadian" />
+                        <ValidationMessage For="@(() => report.IncidentLocation)" />
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="description">Uraian Kejadian <span class="required">*</span></label>
+                    <InputTextArea id="description" class="form-control large" rows="6" @bind-Value="report.Description"
+                        placeholder="Jelaskan secara rinci kronologi kejadian, siapa yang terlibat, apa yang terjadi, kapan, di mana, dan bagaimana." />
+                    <ValidationMessage For="@(() => report.Description)" />
+                </div>
+            </section>
+
+            <section class="form-section">
+                <h3 class="section-title">Bukti Pendukung</h3>
+                <p class="section-note">Unggah file bukti yang relevan (JPG, PNG, PDF, MP4, MOV, AVI) maksimal 10 MB.</p>
+                <div class="evidence-upload">
+                    <InputFile OnChange="HandleEvidenceUpload" accept=".jpg,.jpeg,.png,.pdf,.mp4,.mov,.avi" />
+                    @if (!string.IsNullOrEmpty(selectedEvidenceName))
+                    {
+                        <div class="file-preview">📎 @selectedEvidenceName</div>
+                    }
+                </div>
+            </section>
+
+            <section class="form-section">
+                <h3 class="section-title">Verifikasi Keamanan</h3>
+                <div class="captcha-panel">
+                    <div class="captcha-code">@captchaCode</div>
+                    <button type="button" class="captcha-refresh" @onclick="GenerateCaptcha">↻ Ganti Kode</button>
+                </div>
+                <div class="form-group">
+                    <label for="captchaInput">Masukkan Kode <span class="required">*</span></label>
+                    <InputText id="captchaInput" class="form-control" @bind-Value="report.CaptchaInput"
+                        placeholder="Masukkan kode keamanan" />
+                    <ValidationMessage For="@(() => report.CaptchaInput)" />
+                </div>
+            </section>
+
+            <div class="form-actions">
+                <button type="submit" class="btn-primary" disabled="@isSubmitting">
+                    @(isSubmitting ? "Mengirim..." : "Kirim Laporan")
+                </button>
+                <button type="button" class="btn-secondary" @onclick="ResetForm" disabled="@isSubmitting">
+                    Reset Form
+                </button>
+            </div>
+        </EditForm>
+    }
+</div>
 
 @code {
     private Report report = new();
-    private bool success = false;
-    private bool isSubmitting = false;
+    private bool success;
+    private bool isSubmitting;
+    private string? submissionError;
+    private string? fileError;
+    private string? captchaError;
+    private string captchaCode = string.Empty;
+    private string? selectedEvidenceName;
+
+    private bool IsAnonymous
+    {
+        get => report.IsAnonymous;
+        set
+        {
+            report.IsAnonymous = value;
+            if (value)
+            {
+                report.ReporterName = "Anonim";
+            }
+            else if (string.Equals(report.ReporterName, "Anonim", StringComparison.OrdinalIgnoreCase))
+            {
+                report.ReporterName = string.Empty;
+            }
+        }
+    }
+
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+        ResetFormState(requestRender: false);
+    }
 
     private async Task SubmitReport()
     {
+        submissionError = null;
+        captchaError = null;
+
+        if (!string.Equals(report.CaptchaInput?.Trim(), captchaCode, StringComparison.OrdinalIgnoreCase))
+        {
+            captchaError = "Kode keamanan tidak sesuai. Silakan coba lagi.";
+            report.CaptchaInput = string.Empty;
+            GenerateCaptcha();
+            return;
+        }
+
         isSubmitting = true;
         try
         {
@@ -66,17 +229,87 @@ else
             }
             else
             {
-                // Handle error
+                submissionError = "Terjadi kesalahan saat mengirim laporan. Silakan coba lagi.";
             }
         }
-        catch (Exception ex)
+        catch (Exception)
         {
-            // Handle exception
+            submissionError = "Pengiriman gagal. Periksa koneksi Anda dan coba lagi.";
         }
         finally
         {
             isSubmitting = false;
         }
+    }
+
+    private async Task HandleEvidenceUpload(InputFileChangeEventArgs e)
+    {
+        fileError = null;
+        selectedEvidenceName = null;
+        report.EvidenceData = null;
+        report.EvidenceContentType = null;
+        report.EvidenceFileName = null;
+
+        var file = e.File;
+        if (file is null)
+        {
+            return;
+        }
+
+        if (!ReportMetadata.IsAllowedEvidenceContentType(file.ContentType))
+        {
+            fileError = "Format file tidak didukung. Gunakan JPG, PNG, PDF, MP4, MOV, atau AVI.";
+            return;
+        }
+
+        if (!ReportMetadata.IsEvidenceSizeValid((long)file.Size))
+        {
+            fileError = "Ukuran file melebihi 10 MB.";
+            return;
+        }
+
+        try
+        {
+            using var stream = file.OpenReadStream(ReportMetadata.MaxEvidenceSize);
+            using var memory = new MemoryStream();
+            await stream.CopyToAsync(memory);
+            report.EvidenceData = memory.ToArray();
+            report.EvidenceContentType = file.ContentType;
+            report.EvidenceFileName = file.Name;
+            selectedEvidenceName = file.Name;
+        }
+        catch
+        {
+            fileError = "Gagal membaca file bukti. Silakan coba lagi.";
+        }
+    }
+
+    private void ResetForm()
+    {
+        success = false;
+        ResetFormState(requestRender: true);
+    }
+
+    private void ResetFormState(bool requestRender = true)
+    {
+        report = new Report
+        {
+            IncidentDate = DateTime.Today
+        };
+        submissionError = null;
+        fileError = null;
+        captchaError = null;
+        selectedEvidenceName = null;
+        GenerateCaptcha();
+        if (requestRender)
+        {
+            StateHasChanged();
+        }
+    }
+
+    private void GenerateCaptcha()
+    {
+        captchaCode = ReportMetadata.GenerateCaptchaCode();
     }
 
     private void NavigateToHome()

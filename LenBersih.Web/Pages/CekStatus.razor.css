@@ -1,5 +1,6 @@
 .status-check-section {
   display: flex;
+  margin-top: 2rem;
   justify-content: center;
   align-items: center;
   min-height: calc(100vh - 200px);

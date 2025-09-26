@@ -60,9 +60,23 @@
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
 }
 
+.text-bg-red {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.25rem 0.75rem;
+  border-radius: 12px;
+  background: linear-gradient(90deg, #f01e1e, #fa3c3c);
+  color: rgb(255, 255, 255);
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  text-shadow: none;
+  box-shadow: 0 6px 18px -8px rgba(240, 30, 30, 0.65);
+}
+
 .hero-description {
   font-size: 1rem;
-  color: rgb(220, 218, 218);
+  color: rgb(230, 228, 228);
   line-height: 1.6;
   margin-bottom: 4rem;
   text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.7);
@@ -228,13 +242,6 @@
   gap: 1.5rem;
 }
 
-/* Responsive layout for programs grid */
-@media (max-width: 768px) {
-  .programs-grid {
-    grid-template-columns: 1fr;
-  }
-}
-
 @media (min-width: 1200px) {
   .programs-grid {
     grid-template-columns: repeat(4, 1fr);
@@ -337,7 +344,7 @@
 .scope-section {
   background: linear-gradient(180deg, #f8fafc 0%, #eef2ff 100%);
   padding: 4rem 0 3rem;
-  margin-top: 1rem;
+  margin-top: 0.5rem;
 }
 
 .scope-container {
@@ -617,6 +624,10 @@
 }
 
 @media (max-width: 768px) {
+  /* Responsive layout  */
+  .hero-section {
+    background-position: center;
+  }
   .guide-container {
     padding: 0 1.25rem;
   }

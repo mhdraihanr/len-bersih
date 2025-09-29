@@ -6,7 +6,11 @@ Len Bersih adalah portal web E-Whistleblowing System resmi milik PT Len Industri
 
 Tujuan utama: Mendukung budaya integritas dan tata kelola yang bersih di lingkungan PT Len Industri.
 
-## Pembaruan Terbaru (26 September 2025)
+## Pembaruan Terbaru (29 September 2025)
+
+- Restrukturisasi **folder Pages**: setiap halaman kini berada di subfolder masing-masing (`Pages/Home`, `Pages/Report`, `Pages/CekStatus`) bersama stylesheet scoped-nya untuk memudahkan pemeliharaan dan konsistensi gaya.
+
+### 26 September 2025
 
 - Penyegaran **halaman Report** dengan latar gradien lembut dan radius ekstra agar form semakin menonjol dan nyaman dibaca.
 - Penataan ulang **form pelaporan**: border gradien, padding yang diperkecil, serta jarak antarelemen yang lebih rapat untuk alur input lebih ringkas.

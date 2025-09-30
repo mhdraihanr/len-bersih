@@ -2,6 +2,7 @@
 @using LenBersih.Shared
 @using Microsoft.AspNetCore.Components.Forms
 @using System.Net.Http.Json
+@using DNTCaptcha.Blazor
 @inject HttpClient Http
 @inject NavigationManager Navigation
 
@@ -149,15 +150,35 @@
 
             <section class="form-section">
                 <h3 class="section-title">Verifikasi Keamanan</h3>
-                <div class="captcha-panel">
-                    <div class="captcha-code">@captchaCode</div>
-                    <button type="button" class="captcha-refresh" @onclick="GenerateCaptcha">↻ Ganti Kode</button>
-                </div>
-                <div class="form-group">
-                    <label for="captchaInput">Masukkan Kode <span class="required">*</span></label>
-                    <InputText id="captchaInput" class="form-control" @bind-Value="report.CaptchaInput"
-                        placeholder="Masukkan kode keamanan" />
-                    <ValidationMessage For="@(() => report.CaptchaInput)" />
+                <p class="section-note">Silakan selesaikan Security Number berikut untuk memverifikasi bahwa Anda bukan
+                    robot.</p>
+
+                <div class="row mb-3">
+                    <label class="col-form-label col-lg-3" for="SecurityNumber">Security Number</label>
+                    <div class="col-lg-9">
+                        <div class="input-group">
+                            <div class="input-group-text">
+                                <span class="bi bi-shield-lock" role="img" aria-label="SecurityNumber"></span>
+                            </div>
+                            <InputText name="SecurityNumber" class="form-control" placeholder="Masukkan kode keamanan"
+                                autocapitalize="off" autocorrect="off" autocomplete="off"
+                                @bind-Value="securityNumberModel.EnteredCaptchaText" />
+                            <DntInputCaptcha @bind-Value="securityNumberModel.CaptchaText" Language="@English"
+                                DisplayMode="@ShowDigits" AllowThousandsSeparators="false" Max="9999" Min="1000"
+                                ShowRefreshButton="true" FontSize="31" FontColor="#603F83FF" BackgroundColor="#FCF6F5FF"
+                                CaptchaDivClass="d-flex justify-content-center align-self-center ms-1"
+                                RefreshButtonClass="bi-arrow-repeat btn" />
+                        </div>
+                        @if (!string.IsNullOrEmpty(captchaError))
+                        {
+                            <div class="invalid-feedback d-block">@captchaError</div>
+                        }
+                        <ValidationMessage For="@(() => securityNumberModel.EnteredCaptchaText)" />
+                        <div class="form-text">
+                            <span class="bi bi-info-circle me-1"></span>
+                            Masukkan angka yang ditampilkan dalam gambar di atas untuk verifikasi keamanan
+                        </div>
+                    </div>
                 </div>
             </section>
 
@@ -175,12 +196,12 @@
 
 @code {
     private Report report = new();
+    private SecurityNumberModel securityNumberModel = new();
     private bool success;
     private bool isSubmitting;
     private string? submissionError;
     private string? fileError;
     private string? captchaError;
-    private string captchaCode = string.Empty;
     private string? selectedEvidenceName;
 
     private bool IsAnonymous
@@ -211,11 +232,15 @@
         submissionError = null;
         captchaError = null;
 
-        if (!string.Equals(report.CaptchaInput?.Trim(), captchaCode, StringComparison.OrdinalIgnoreCase))
+        // Validate CAPTCHA before submission
+        if (string.IsNullOrWhiteSpace(securityNumberModel.EnteredCaptchaText) ||
+        string.IsNullOrWhiteSpace(securityNumberModel.CaptchaText) ||
+        !securityNumberModel.EnteredCaptchaText.Equals(securityNumberModel.CaptchaText, StringComparison.Ordinal))
         {
-            captchaError = "Kode keamanan tidak sesuai. Silakan coba lagi.";
-            report.CaptchaInput = string.Empty;
-            GenerateCaptcha();
+            captchaError = "Security Number tidak valid. Silakan masukkan kode yang benar.";
+            // Clear the form to regenerate captcha
+            securityNumberModel.EnteredCaptchaText = string.Empty;
+            securityNumberModel.CaptchaText = string.Empty;
             return;
         }
 
@@ -296,24 +321,21 @@
         {
             IncidentDate = DateTime.Today
         };
+        securityNumberModel = new SecurityNumberModel();
         submissionError = null;
         fileError = null;
         captchaError = null;
         selectedEvidenceName = null;
-        GenerateCaptcha();
         if (requestRender)
         {
             StateHasChanged();
         }
     }
 
-    private void GenerateCaptcha()
-    {
-        captchaCode = ReportMetadata.GenerateCaptchaCode();
-    }
-
     private void NavigateToHome()
     {
         Navigation.NavigateTo("/");
     }
+
+
 }

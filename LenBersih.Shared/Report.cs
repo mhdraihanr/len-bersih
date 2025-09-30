@@ -50,10 +50,6 @@ public class Report
     public string? EvidenceContentType { get; set; }
     public byte[]? EvidenceData { get; set; }
 
-    [Required]
-    [MaxLength(10)]
-    public string CaptchaInput { get; set; } = string.Empty;
-
     public DateTime DateReported { get; set; } = DateTime.UtcNow;
 }
 
@@ -87,30 +83,6 @@ public static class ReportMetadata
     };
 
     public static IReadOnlyCollection<string> AllowedEvidenceContentTypes => AllowedEvidenceContentTypesSet;
-
-    private const string CaptchaCharacters = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
-
-    public static string GenerateCaptchaCode(int length = 5)
-    {
-        if (length <= 0)
-        {
-            throw new ArgumentOutOfRangeException(nameof(length));
-        }
-
-        var chars = new char[length];
-        Span<byte> bytes = stackalloc byte[length];
-
-        using var rng = RandomNumberGenerator.Create();
-        rng.GetBytes(bytes);
-
-        for (var i = 0; i < length; i++)
-        {
-            var index = bytes[i] % CaptchaCharacters.Length;
-            chars[i] = CaptchaCharacters[index];
-        }
-
-        return new string(chars);
-    }
 
     public static bool IsAllowedEvidenceContentType(string? contentType) =>
         !string.IsNullOrWhiteSpace(contentType) && AllowedEvidenceContentTypesSet.Contains(contentType);

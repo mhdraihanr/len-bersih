@@ -116,16 +116,23 @@
   font-size: 0.9rem;
   border-radius: 6px;
   white-space: nowrap;
+  position: relative;
 }
 
-.nav-link:hover {
-  color: #3b82f6;
-  background-color: #f0f9ff;
+.nav-link::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  width: 0;
+  height: 2px;
+  background-color: #f01e1e;
+  transition: all 0.3s ease;
+  transform: translateX(-50%);
 }
 
-.nav-link.active {
-  color: #3b82f6;
-  background-color: #eff6ff;
+.nav-link:hover::after {
+  width: 80%;
 }
 
 .nav-link:hover .nav-icon,

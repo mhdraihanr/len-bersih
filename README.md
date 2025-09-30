@@ -2,11 +2,26 @@
 
 ## Deskripsi Proyek
 
-Len Bersih adalah portal web E-Whistleblowing System resmi milik PT Len Industri (Persero). Sistem ini berfungsi sebagai kanal resmi untuk melaporkan dugaan pelanggaran secara anonim dan rahasia, seperti gratifikasi, kecurangan, konflik kepentingan, korupsi, pelanggaran hukum, pelanggaran peraturan perusahaan, pencurian, suap, atau penyalahgunaan jabatan. Laporan dikelola oleh Unit Pengelola Whistleblowing System dengan komitmen penuh kerahasiaan pelapor dan tindak lanjut sesuai tata kelola perusahaan.
+Len Bersih ada- **Form Pelaporan**:
+
+- Dropdown kategori, textarea deskripsi, dan submit anonim ke API tanpa login.
+- **Sistem Keamanan CAPTCHA**: DNTCaptcha.Blazor dengan Security Number 4-digit, validasi client-side yang kuat, dan desain responsif mobile-first.
+- **Notifikasi Email Otomatis**: Sistem email terintegrasi dengan template HTML profesional yang mengirim detail laporan lengkap ke administrator melalui Gmail SMTP.
+- Upload bukti pendukung dengan validasi format dan ukuran file.
+- Identitas anonim opsional dengan perlindungan data pelapor.ortal web E-Whistleblowing System resmi milik PT Len Industri (Persero). Sistem ini berfungsi sebagai kanal resmi untuk melaporkan dugaan pelanggaran secara anonim dan rahasia, seperti gratifikasi, kecurangan, konflik kepentingan, korupsi, pelanggaran hukum, pelanggaran peraturan perusahaan, pencurian, suap, atau penyalahgunaan jabatan. Laporan dikelola oleh Unit Pengelola Whistleblowing System dengan komitmen penuh kerahasiaan pelapor dan tindak lanjut sesuai tata kelola perusahaan.
 
 Tujuan utama: Mendukung budaya integritas dan tata kelola yang bersih di lingkungan PT Len Industri.
 
-## Pembaruan Terbaru (29 September 2025)
+## Pembaruan Terbaru (30 September 2025)
+
+- **Sistem Notifikasi Email**: Implementasi lengkap sistem email otomatis menggunakan MailKit dengan template HTML profesional untuk mengirim detail laporan ke administrator melalui Gmail SMTP.
+- **Integrasi Gmail**: EmailService dengan autentikasi Gmail App Password, konfigurasi SMTP melalui appsettings, dan penanganan error yang robust untuk pengiriman email.
+- **Implementasi DNTCaptcha.Blazor**: Mengganti sistem CAPTCHA matematika lama dengan komponen profesional DNTCaptcha.Blazor v1.2.3 yang menggunakan Security Number 4-digit dengan tampilan responsif dan validasi yang kuat.
+- **Model Keamanan**: Penambahan `SecurityNumberModel` dengan validasi Compare attribute untuk memastikan verifikasi CAPTCHA yang akurat sebelum pengiriman laporan.
+- **Layout Bootstrap Input-Group**: CAPTCHA kini menggunakan desain input-group dengan ikon shield, canvas responsif, dan tombol refresh yang terintegrasi dengan tema aplikasi.
+- **Animasi Navigasi Halus**: Peningkatan NavMenu dengan efek hover underline yang smooth menggunakan CSS pseudo-element dan transisi untuk pengalaman pengguna yang lebih profesional.
+
+### 29 September 2025
 
 - Restrukturisasi **folder Pages**: setiap halaman kini berada di subfolder masing-masing (`Pages/Home`, `Pages/Report`, `Pages/CekStatus`) bersama stylesheet scoped-nya untuk memudahkan pemeliharaan dan konsistensi gaya.
 
@@ -29,10 +44,10 @@ Tujuan utama: Mendukung budaya integritas dan tata kelola yang bersih di lingkun
 Proyek dibangun menggunakan .NET 9 dengan arsitektur tiga lapis:
 
 - **LenBersih.Shared**: Class library untuk model bersama (e.g., `Report` model dengan fields: Id, Category, Description, DateReported).
-- **LenBersih.Api**: ASP.NET Core Web API untuk backend, dengan stub controller untuk endpoint GET/POST reports (menggunakan in-memory storage sementara).
+- **LenBersih.Api**: ASP.NET Core Web API untuk backend, dengan controller untuk endpoint GET/POST reports (menggunakan in-memory storage sementara) dan EmailService untuk notifikasi otomatis.
 - **LenBersih.Web**: Blazor WebAssembly untuk frontend UI modern dan clean, dengan halaman Home (overview sistem) dan ReportForm (form pelaporan anonim).
 
-Tidak ada autentikasi saat ini; pelaporan bersifat anonim. Tidak ada integrasi email atau upload file.
+Tidak ada autentikasi saat ini; pelaporan bersifat anonim. Sistem email terintegrasi untuk notifikasi administrator.
 
 ## Persyaratan
 
@@ -71,8 +86,12 @@ Akses UI di browser: `https://localhost:5001` (sesuaikan port jika berbeda). Nav
   - About section yang merinci program dan persyaratan whistleblowing.
   - Guide section berisi langkah-langkah proses WBS yang terstruktur.
   - Animasi scroll AOS dan layout responsif untuk pengalaman yang modern dan intuitif.
-- **Form Pelaporan**: Dropdown kategori, textarea deskripsi, dan submit anonim ke API tanpa login.
-- **API Stubs**: Endpoint GET /api/reports (daftar laporan) dan POST /api/reports (buat laporan baru) menggunakan penyimpanan sementara in-memory.
+- **Form Pelaporan**:
+  - Dropdown kategori, textarea deskripsi, dan submit anonim ke API tanpa login.
+  - **Sistem Keamanan CAPTCHA**: DNTCaptcha.Blazor dengan Security Number 4-digit, validasi client-side yang kuat, dan desain responsif mobile-first.
+  - Upload bukti pendukung dengan validasi format dan ukuran file.
+  - Identitas anonim opsional dengan perlindungan data pelapor.
+- **API Backend**: Endpoint GET /api/reports (daftar laporan) dan POST /api/reports (buat laporan baru) dengan penyimpanan in-memory dan notifikasi email otomatis menggunakan EmailService.
 - **Navigasi Satu Halaman**: Tautan navbar langsung ke hero, scope, guide, dan about untuk memudahkan eksplorasi.
 
 ## Rencana Masa Depan

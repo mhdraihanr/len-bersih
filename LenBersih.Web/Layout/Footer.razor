@@ -1,0 +1,69 @@
+@inject NavigationManager NavigationManager
+
+<footer class="len-bersih-footer">
+    <div class="footer-container">
+        <!-- Footer Top Section -->
+        <div class="footer-top">
+            <div class="footer-column footer-brand" data-aos="fade-up" data-aos-duration="800">
+                <div class="footer-logo-section">
+                    <img src="https://lenbersih.len.co.id/assets/img/P_Len%20Industri%202018.png" alt="PT Len Industri"
+                        class="footer-logo" />
+                    <h3 class="footer-brand-name">E-WBS</h3>
+                </div>
+                <p class="footer-description">
+                    Sistem E-Whistleblowing resmi PT Len Industri (Persero) untuk melaporkan dugaan pelanggaran
+                    secara anonim dan rahasia dengan komitmen penuh kerahasiaan pelapor.
+                </p>
+            </div>
+
+            <div class="footer-column" data-aos="fade-up" data-aos-duration="800" data-aos-delay="100">
+                <h4 class="footer-heading">Navigasi</h4>
+                <ul class="footer-links">
+                    <li><a href="/#home" @onclick='() => NavigateToSection("home")'>Home</a></li>
+                    <li><a href="/#guide" @onclick='() => NavigateToSection("guide")'>Panduan</a></li>
+                    <li><a href="/#scope" @onclick='() => NavigateToSection("scope")'>Ruang Lingkup</a></li>
+                    <li><a href="/#about" @onclick='() => NavigateToSection("about")'>Tentang WBS</a></li>
+                    <li><a href="/report">Laporkan Sekarang</a></li>
+                    <li><a href="/cek-status">Cek Status Laporan</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-column" data-aos="fade-up" data-aos-duration="800" data-aos-delay="200">
+                <h4 class="footer-heading">Kontak</h4>
+                <ul class="footer-contact">
+                    <li class="contact-item">
+                        <span class="contact-icon">📍</span>
+                        <span>Jl. Soekarno Hatta No. 442<br />Bandung 40254, Indonesia</span>
+                    </li>
+                    <li class="contact-item">
+                        <span class="contact-icon">📧</span>
+                        <span>wbs@len.co.id</span>
+                    </li>
+                    <li class="contact-item">
+                        <span class="contact-icon">🔒</span>
+                        <span>Laporan Anda Dijamin Rahasia</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Footer Divider -->
+        <div class="footer-divider"></div>
+
+        <!-- Footer Bottom Section -->
+        <div class="footer-bottom">
+            <div class="footer-bottom-content">
+                <p class="footer-copyright">
+                    &copy; @DateTime.Now.Year PT Len Industri (Persero). All Rights Reserved.
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+@code {
+    private void NavigateToSection(string sectionId)
+    {
+        NavigationManager.NavigateTo($"/#" + sectionId, forceLoad: false);
+    }
+}

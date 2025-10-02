@@ -1,6 +1,10 @@
 # Len Bersih – Agent Guide
 
-## What changed recently (30 Sep 2025)
+## What changed recently (2 Oct 2025)
+
+- **Professional Footer Component**: Added comprehensive footer in `Layout/Footer.razor` with 3-column responsive grid layout including brand section, navigation links, and contact information. Features AOS (Animate On Scroll) animations consistent with Home.razor patterns (fade-up with 800ms duration and staggered delays), smooth hover effects, and mobile-first responsive design.
+
+### 30 September 2025
 
 - **Email Notification System**: Implemented complete email notification using MailKit for automatic report submissions. Professional HTML email template sends detailed reports to configured Gmail account with SMTP authentication.
 - **Gmail Integration**: Added EmailService with Gmail App Password authentication, SMTP configuration via appsettings, and proper error handling for email delivery failures.
@@ -20,6 +24,10 @@
 
 - **LenBersih.Api** – ASP.NET Core backend, primary entry is `Program.cs` with `/api/reports` handled in `Controllers/ReportsController.cs` (in-memory storage, evidence validation, email notifications via EmailService).
 - **LenBersih.Web** – Blazor WASM frontend with DNTCaptcha.Blazor integration. Hot reload via `dotnet watch --project LenBersih.Web`.
+  - **Layout Folder**: Contains reusable layout components:
+    - `NavMenu.razor` – Top navigation with smooth hover animations
+    - `Footer.razor` – Comprehensive footer with 4-column grid, social links, and contact info
+    - `MainLayout.razor` – Main page wrapper integrating NavMenu and Footer
 - **LenBersih.Shared** – Contains `Report` DTO, `SecurityNumberModel` for CAPTCHA validation, and `ReportMetadata` constants. Update this first when adding categories, evidence rules, or security validation patterns so both API and Web stay aligned.
 - **EmailService** – MailKit-based service for sending HTML email notifications with professional template formatting and Gmail SMTP integration.
 
@@ -29,7 +37,11 @@
   - `Pages/Home/Home.razor` & `.css`
   - `Pages/Report/ReportForm.razor` & `.css`
   - `Pages/CekStatus/CekStatus.razor` & `.css`
-- Component-scoped CSS lives beside its Razor file. Keep breakpoints and animations (`data-aos` attributes, keyframes) in sync with `ANIMATION_GUIDE.md`.
+- Layout components in `Layout/` folder:
+  - `NavMenu.razor` & `.css` – Navigation with smooth underline animations
+  - `Footer.razor` & `.css` – Professional footer with gradient background and responsive grid
+  - `MainLayout.razor` & `.css` – Main layout wrapper
+- Component-scoped CSS lives beside its Razor file. Keep breakpoints and animations (`data-aos` attributes, keyframes) in sync with design patterns.
 
 ## Email Notification System
 

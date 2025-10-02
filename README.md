@@ -12,7 +12,11 @@ Len Bersih ada- **Form Pelaporan**:
 
 Tujuan utama: Mendukung budaya integritas dan tata kelola yang bersih di lingkungan PT Len Industri.
 
-## Pembaruan Terbaru (30 September 2025)
+## Pembaruan Terbaru (2 Oktober 2025)
+
+- **Komponen Footer Profesional**: Penambahan footer komprehensif dengan layout grid 3-kolom responsif yang mencakup informasi brand, navigasi (termasuk link ke form pelaporan dan cek status), dan kontak. Dilengkapi animasi AOS (Animate On Scroll) yang konsisten dengan pola Home.razor (fade-up duration 800ms dengan delay bertahap), hover effects yang smooth, dan desain mobile-first yang elegan dengan gradient background.
+
+### 30 September 2025
 
 - **Sistem Notifikasi Email**: Implementasi lengkap sistem email otomatis menggunakan MailKit dengan template HTML profesional untuk mengirim detail laporan ke administrator melalui Gmail SMTP.
 - **Integrasi Gmail**: EmailService dengan autentikasi Gmail App Password, konfigurasi SMTP melalui appsettings, dan penanganan error yang robust untuk pengiriman email.

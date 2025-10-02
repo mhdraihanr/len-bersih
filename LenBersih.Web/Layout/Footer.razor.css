@@ -193,7 +193,8 @@
     rgba(255, 255, 255, 0.2),
     transparent
   );
-  margin: 2rem 0;
+  margin: 1rem 0;
+  margin-top: -1rem;
 }
 
 /* Footer Bottom Section */
@@ -211,7 +212,7 @@
 }
 
 .footer-copyright {
-  margin: 0;
+  margin-top: -1rem;
   font-size: 0.875rem;
   color: #94a3b8;
 }

@@ -21,6 +21,19 @@ public class ReportsController : ControllerBase
         _logger = logger;
     }
 
+    private static int GenerateUniqueReportId()
+    {
+        // Generate random ID between 100 and 999999 using Random.Shared (thread-safe .NET 6+)
+        int reportId;
+        do
+        {
+            reportId = Random.Shared.Next(100, 1000000);
+        }
+        while (_reports.Any(r => r.Id == reportId)); // Ensure uniqueness
+
+        return reportId;
+    }
+
     [HttpGet]
     public ActionResult<IEnumerable<Report>> GetReports()
     {
@@ -63,7 +76,8 @@ public class ReportsController : ControllerBase
             }
         }
 
-        report.Id = _reports.Count + 1;
+        // Generate cryptographically secure random ID (100-999999)
+        report.Id = GenerateUniqueReportId();
         report.DateReported = DateTime.UtcNow;
         _reports.Add(report);
 

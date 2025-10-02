@@ -23,6 +23,14 @@
             <div class="success-icon">✅</div>
             <h2>Laporan Berhasil Terkirim</h2>
             <p>Terima kasih atas kontribusi Anda dalam menjaga integritas PT Len Industri.</p>
+            @if (submittedReport is not null && submittedReport.Id > 0)
+            {
+                <div class="report-id-display">
+                    <span class="report-id-label">ID Laporan Anda:</span>
+                    <span class="report-id-value">@submittedReport.Id</span>
+                </div>
+                <p class="report-id-note">Simpan ID ini untuk melacak status laporan Anda.</p>
+            }
             <div class="success-actions">
                 <button class="btn-secondary" @onclick="NavigateToHome">Kembali ke Beranda</button>
                 <button class="btn-primary" @onclick="ResetForm">Kirim Laporan Baru</button>
@@ -196,6 +204,7 @@
 
 @code {
     private Report report = new();
+    private Report? submittedReport;
     private SecurityNumberModel securityNumberModel = new();
     private bool success;
     private bool isSubmitting;
@@ -250,6 +259,7 @@
             var response = await Http.PostAsJsonAsync("api/reports", report);
             if (response.IsSuccessStatusCode)
             {
+                submittedReport = await response.Content.ReadFromJsonAsync<Report>();
                 success = true;
             }
             else
@@ -321,6 +331,7 @@
         {
             IncidentDate = DateTime.Today
         };
+        submittedReport = null;
         securityNumberModel = new SecurityNumberModel();
         submissionError = null;
         fileError = null;

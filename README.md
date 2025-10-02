@@ -14,6 +14,7 @@ Tujuan utama: Mendukung budaya integritas dan tata kelola yang bersih di lingkun
 
 ## Pembaruan Terbaru (2 Oktober 2025)
 
+- **Sistem ID Laporan Random**: Implementasi generator ID laporan acak yang aman (100-999999) menggunakan `Random.Shared` dengan validasi keunikan. Halaman sukses kini menampilkan ID laporan dengan styling gradient profesional untuk referensi pelapor dalam melacak status.
 - **Komponen Footer Profesional**: Penambahan footer komprehensif dengan layout grid 3-kolom responsif yang mencakup informasi brand, navigasi (termasuk link ke form pelaporan dan cek status), dan kontak. Dilengkapi animasi AOS (Animate On Scroll) yang konsisten dengan pola Home.razor (fade-up duration 800ms dengan delay bertahap), hover effects yang smooth, dan desain mobile-first yang elegan dengan gradient background.
 
 ### 30 September 2025

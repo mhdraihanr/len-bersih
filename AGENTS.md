@@ -2,6 +2,7 @@
 
 ## What changed recently (2 Oct 2025)
 
+- **Random Report ID Generation**: Implemented cryptographically secure random ID generation (100-999999) using `Random.Shared` in ReportsController with uniqueness validation. Success message now displays generated report ID with professional gradient styling for user reference.
 - **Professional Footer Component**: Added comprehensive footer in `Layout/Footer.razor` with 3-column responsive grid layout including brand section, navigation links, and contact information. Features AOS (Animate On Scroll) animations consistent with Home.razor patterns (fade-up with 800ms duration and staggered delays), smooth hover effects, and mobile-first responsive design.
 
 ### 30 September 2025

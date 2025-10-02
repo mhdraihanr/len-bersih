@@ -60,8 +60,8 @@
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
 }
 .text-underline {
-  font-size: 1rem;
-  color: rgb(230, 228, 228);
+  font-size: 0.9rem;
+  color: rgb(239, 235, 235);
   font-weight: 700;
   line-height: 1.6;
   margin-bottom: 4rem;
@@ -75,6 +75,7 @@
 }
 
 .text-bg-red {
+  font-size: 1rem;
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -89,7 +90,7 @@
 }
 
 .hero-description {
-  font-size: 1rem;
+  font-size: 0.9rem;
   color: rgb(230, 228, 228);
   line-height: 1.6;
   margin-bottom: 4rem;

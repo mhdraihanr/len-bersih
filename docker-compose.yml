@@ -1,0 +1,43 @@
+version: "3.8"
+
+services:
+  mariadb:
+    image: mariadb:11.2
+    container_name: lenbersih-mariadb
+    restart: always
+    environment:
+      MARIADB_ROOT_PASSWORD: LenBersih2025!
+      MARIADB_DATABASE: lenbersih
+      MARIADB_USER: lenbersih_user
+      MARIADB_PASSWORD: LenBersih_Pass123!
+    ports:
+      - "3307:3306"
+    volumes:
+      - mariadb_data:/var/lib/mysql
+      - ./database/init:/docker-entrypoint-initdb.d
+    networks:
+      - lenbersih-network
+
+  phpmyadmin:
+    image: phpmyadmin:latest
+    container_name: lenbersih-phpmyadmin
+    restart: always
+    environment:
+      PMA_HOST: mariadb
+      PMA_PORT: 3306
+      PMA_USER: root
+      PMA_PASSWORD: LenBersih2025!
+    ports:
+      - "8080:80"
+    depends_on:
+      - mariadb
+    networks:
+      - lenbersih-network
+
+volumes:
+  mariadb_data:
+    driver: local
+
+networks:
+  lenbersih-network:
+    driver: bridge
